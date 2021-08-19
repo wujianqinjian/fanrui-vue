@@ -14,9 +14,7 @@
     <div id="root">
         <input type="text" placeholder="请出入参考文档标题" v-model="title"></input><br>
         <input type="text" placeholder="请出入参考文档网址" v-model="address"></input><br>
-        <el-form>
-            {{ list }}
-        </el-form>
+        <span>{{ list }}</span>
     </div>
 </body>
     <script type="text/javascript">
@@ -29,8 +27,12 @@
             title:'名称一123',
             address:'地址一'
           },
+          // 简单写法
           computed:{
-            list:{
+            list(){
+              return this.title+'-'+this.address
+            }
+            /*list:{
               get(){
                 return this.title+'-'+this.address
               },
@@ -40,7 +42,7 @@
                 this.title=list[0]
                 this.address=list[1]
               }
-            }
+            }*/
           }
             })
     </script>

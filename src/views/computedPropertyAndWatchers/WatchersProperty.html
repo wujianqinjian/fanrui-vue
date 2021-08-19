@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        *{
+            margin-top:11px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <input type="text" placeholder="请出入参考文档标题" v-model="title"></input><br>
+
+        <button @click="listinputshow =! listinputshow">切换展示输入内容</button><br>
+        <span>{{listinputshow}}</span><br>
+        <br><br>
+        <span>{{help_title}}</span><br>
+        <button @click="listdatashow =! listdatashow">改变显示方式</button><br>
+
+
+    </div>
+</body>
+    <script type="text/javascript">
+      Vue.config.productionTip=false
+        const vm=new Vue({
+          el:'#root',
+          methods:{
+          },
+          data:{
+            title:'名称一123',
+            help_title:'帮助文档标题',
+            listinputshow:true
+          },
+          // 简单写法
+          computed:{
+            list(){
+              return this.title+'-'+this.address
+            },
+            listinputshow(){
+              return this.listinputshow?this.title:this.help_title
+            }
+          },
+          watch:{
+            listinputshow:{
+              handler(newValue,oldValue,newValue){
+                console.log("title被修改了",oldValue,newValue)
+              }
+            }
+          }
+            })
+    </script>
+</html>
