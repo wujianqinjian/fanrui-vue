@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        *{
+            margin-top:11px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <h2>我是：{{ name }}</h2>
+        <input type="text" placeholder="按回车提示" @keyup.enter.passive.stop="showInfo">
+        <button @click="showInfo">Test Button</button>
+        <div>
+            <input type="text" placeholder="按下ctrl+y确认输入" @keyup.shift.y="testCtrlY"><br/>
+            <input type="text" placeholder="按下ctrl+y+x确认输入" @keyup.shift.y.x="testCtrlY"><br/>
+            <input type="text" placeholder="按下Capslock确认输入" @keyup.caps-lock="testCtrlY"><br/>
+            <input type="text" placeholder="按下Capslock确认输入" @keydown.caps-lock="testCapslock"><br/>
+        </div>
+    </div>
+</body>
+    <script type="text/javascript">
+      Vue.config.productionTip=false
+        const vm=new Vue({
+          el:'#root',
+          methods:{
+            showInfo(e){
+              if (e.keyCode == 13 )
+                console.log(e.target.value)
+            },
+            testCtrlY(e){
+              console.log(e.target.value)
+            },
+            testCapslock(e){
+              console.log(e.target.value)
+            }
+          },
+          data:{
+            name:'名称一123',
+            address:'地址一'
+          }
+            })
+    </script>
+</html>

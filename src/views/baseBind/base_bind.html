@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        *{
+            margin-top:11px;
+        }
+        .box{
+            height:55px;
+            width:255px;
+            background-color:skyblue;
+        }
+
+        .box_son{
+            height:15px;
+            width:100px;
+            background-color:red;
+            margin-left:5px;
+            padding-bottom: 5px;
+        }
+        .list{
+            height:300px;
+            width:100px;
+            overflow:auto;
+            background-color:green;
+        }
+        li{
+            height:150px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- {{}} 双向绑定-->
+        <h2>学校名称:{{name}}</h2>
+        <h2>学校地址:{{address}}</h2>
+        <!--v:on 绑定事件 -->
+        <button v-on:click="showInfo(66,$event)">删除id为*的用户</button>
+        <!-- stopDefault: 组织默认行为 -->
+        <a href="https://www.baidu.com/" @click="stopDefault">跳转百度</a>
+        <a href="https://www.baidu.com/" @click.prevent>跳转百度2</a>
+        <a href="https://www.baidu.com/" @click>跳转百度3</a>
+        <div>
+            <div>
+                <div @click="showInfo(1,$event)">
+                    <div @click.stop="showInfo(11,$event)">
+                        <button @click="showInfo(111,$event)">多层级冒泡处理</button>
+                        <button id="test1"></button>
+                        <button id="test2"></button>
+                    </div>
+                </div>
+                <div>
+                    <button @click.once="showInfo" id="test_once">单次触发</button>
+                </div>
+            </div>
+        </div>
+        <div class="box" @click.capture="showMsg(1)">
+            box
+            <div class="box_son" @click="showMsg(2)">
+                box_son
+            </div>
+        </div>
+        <div class="box" @click.self="showSelf">
+            <button @click="showSelf">事件目标触发冒泡</button>
+        </div>
+        <ul @wheel.passive="showPrese" class="list">
+            <li>坐标1</li>
+        </ul>
+    </div>
+</body>
+    <script type="text/javascript">
+      Vue.config.productionTip=false
+        const vm=new Vue({
+          el:'#root',
+          methods:{
+            showInfo(id,event){
+              //console.log(id,event.target.innerText)
+              console.log(event)
+              //event.preventDefault()
+              alert("删除id为"+id+'的用户')
+            },
+            stopDefault(evenet){
+              //组织默认行为
+              evenet.preventDefault()
+            },
+            showMsg(msg){
+              console.log(msg)
+            },
+            showSelf(e){
+              console.log(e.target)
+            },
+            showPrese(){
+              for(var i=0;i<10;i++){
+                console.log('@')
+              }
+              console.log("事件执行结束")
+            }
+          },
+          data:{
+            name:'名称一123',
+            address:'地址一'
+          }
+            })
+    </script>
+</html>
